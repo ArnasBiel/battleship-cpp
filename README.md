@@ -1,4 +1,4 @@
-# Battleship — C++ Console Game with Heatmap AI
+# Battleship: C++ Console Game with Heatmap AI
 
 A fully playable command-line implementation of the classic Battleship game, built in C++ as a university project. Features a human-vs-AI game mode where the AI opponent uses a **probability heatmap strategy** to make intelligent attack decisions.
 
@@ -6,7 +6,7 @@ A fully playable command-line implementation of the classic Battleship game, bui
 
 ## Gameplay
 
-Players take turns placing ships on a 10×10 grid and then attacking each other's fleet. The game follows standard Battleship rules — a player continues shooting on a hit, and their turn ends on a miss or when they sink a ship.
+Players take turns placing ships on a 10×10 grid and then attacking each other's fleet. The game follows standard Battleship rules: a player continues shooting on a hit, and their turn ends on a miss or when they sink a ship.
 
 ```
 | _ | A | B | C | D | E | F | G | H | I | J |
@@ -38,7 +38,7 @@ Players take turns placing ships on a 10×10 grid and then attacking each other'
 Manages two separate grids per player: a ship placement board and an attack tracking board. Handles validation of ship placements (boundary checks, overlap detection) and marks hits and misses after each attack. Ships are displayed using the first letter of their name as a symbol.
 
 ### `Ship`
-Stores the coordinates of each individual ship fragment. Rather than inferring hit state from the board (which would require deducing ship size and orientation from surrounding marks), each ship tracks its own fragment coordinates directly — marking a hit replaces the fragment's coordinates with `(-1, -1)`. A ship is considered sunk when all fragments are marked.
+Stores the coordinates of each individual ship fragment. Rather than inferring hit state from the board (which would require deducing ship size and orientation from surrounding marks), each ship tracks its own fragment coordinates directly, marking a hit replaces the fragment's coordinates with `(-1, -1)`. A ship is considered sunk when all fragments are marked.
 
 ### `Player`
 Handles ship placement (with interactive coordinate input), attack execution, and tracking how many ships remain. The core `processAttack` method is shared with `AIPlayer` through inheritance, keeping attack logic consistent across both players and avoiding code duplication.
@@ -48,7 +48,7 @@ Extends `Player` with a heatmap-based attack strategy. Instead of random guessin
 
 ---
 
-## AI Strategy — Probability Heatmap
+## AI Strategy and Probability Heatmap
 
 The AI maintains a 10×10 integer matrix (the heatmap) representing the likelihood of a ship occupying each cell.
 
@@ -72,7 +72,7 @@ After each attack, `updateHeat()` adjusts the heatmap:
 
 ### Emergent diagonal search
 
-An interesting property of this approach: when no hits have been registered, the heatmap naturally produces a **diagonal attack pattern**. This emerges from the weight accumulation geometry rather than being programmed explicitly — diagonal patterns maximise coverage of distinct ship positions on a 10×10 grid.
+An interesting property of this approach: when no hits have been registered, the heatmap naturally produces a **diagonal attack pattern**. This emerges from the weight accumulation geometry rather than being programmed explicitly - diagonal patterns maximise coverage of distinct ship positions on a 10×10 grid.
 
 ```
 Example heatmap (early game, no hits yet):
